@@ -150,6 +150,30 @@ export class DefaultLinkWidget extends BaseWidget<
 		);
 	}
 
+	tmpGenerateStartMarker(id: string) {
+		return (
+			<defs>
+				<marker className={this.bem("-marker")} id={id} markerWidth="6" markerHeight="6" refX="-3" refY="3"
+						orient="auto"
+						markerUnits="strokeWidth">
+					<path d="M0,3 L4,4 L4,2 z"/>
+				</marker>
+			</defs>
+		);
+	}
+
+	tmpGenerateEndMarker(id: string) {
+		return (
+			<defs>
+				<marker className={this.bem("-marker")} id={id} markerWidth="6" markerHeight="6" refX="8" refY="2"
+						orient="auto"
+						markerUnits="strokeWidth">
+					<path d="M1,1 L5,2 L1,3 z"/>
+				</marker>
+			</defs>
+		);
+	}
+
 	generateLink(
 		path: string,
 		extraProps: any,
