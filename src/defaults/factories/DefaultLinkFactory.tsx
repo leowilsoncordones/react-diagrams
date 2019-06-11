@@ -12,7 +12,10 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 		super("default");
 	}
 
-	generateReactWidget(diagramEngine: DiagramEngine, link: DefaultLinkModel): JSX.Element {
+	generateReactWidget(
+		diagramEngine: DiagramEngine,
+		link: DefaultLinkModel
+	): JSX.Element {
 		return React.createElement(DefaultLinkWidget, {
 			link: link,
 			diagramEngine: diagramEngine
@@ -23,13 +26,37 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 		return new DefaultLinkModel();
 	}
 
-	generateLinkSegment(model: DefaultLinkModel, widget: DefaultLinkWidget, selected: boolean, path: string) {
+	generateLinkSegmentOld(
+		model: DefaultLinkModel,
+		widget: DefaultLinkWidget,
+		selected: boolean,
+		path: string
+	) {
 		return (
 			<path
 				className={selected ? widget.bem("--path-selected") : ""}
 				strokeWidth={model.width}
 				stroke={model.color}
 				d={path}
+			/>
+		);
+	}
+	generateLinkSegment(
+		model: DefaultLinkModel,
+		widget: DefaultLinkWidget,
+		selected: boolean,
+		path: string,
+		startMarkerId: string = "-",
+		endMarkerId: string = "-"
+	) {
+		return (
+			<path
+				className={selected ? widget.bem("--path-selected") : ""}
+				strokeWidth={model.width}
+				stroke={model.color}
+				d={path}
+				markerStart={"url(#" + startMarkerId + ")"}
+				markerEnd={"url(#" + endMarkerId + ")"}
 			/>
 		);
 	}

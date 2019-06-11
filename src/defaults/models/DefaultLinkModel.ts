@@ -19,12 +19,14 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelListener> {
 	width: number;
 	color: string;
 	curvyness: number;
+	markers: any;
 
 	constructor(type: string = "default") {
 		super(type);
 		this.color = "rgba(255,255,255,0.5)";
 		this.width = 3;
 		this.curvyness = 50;
+		this.markers = {startMarker: false, endMarker: false};
 	}
 
 	serialize() {
@@ -67,5 +69,8 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelListener> {
 				listener.colorChanged({ ...event, color: color });
 			}
 		});
+	}
+	setMarkers(startMarker: boolean, endMarker: boolean) {
+		this.markers = {startMarker: startMarker, endMarker: endMarker};
 	}
 }
