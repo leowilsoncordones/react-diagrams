@@ -20,7 +20,6 @@
 	"typings": "./dist/@types/src/main",
 	"author": "dylanvorster",
 	"scripts": {
-		"prepare": "yarn run build:ts:prod && yarn run build:sass:prod",
 		"build:ts": "webpack",
 		"build:ts:prod": "cross-env NODE_ENV=production webpack",
 		"build:sass:prod": "node-sass --output-style compressed ./src/sass/main.scss > ./dist/style.min.css",
@@ -31,7 +30,7 @@
 		"lint": "tslint -p .",
 		"test:ci": "rm -rf ./dist && node ./tests/e2e/generate-e2e.js && jest --no-cache",
 		"test": "jest --no-cache",
-		"prepublishOnly": "yarn run build:ts:prod && yarn run build:sass:prod"
+		"prepare": "yarn run build:ts:prod && yarn run build:sass:prod"
 	},
 	"dependencies": {
 		"closest": "^0.0.1",
