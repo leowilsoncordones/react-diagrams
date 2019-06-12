@@ -20,7 +20,7 @@
 	"typings": "./dist/@types/src/main",
 	"author": "dylanvorster",
 	"scripts": {
-		"prepare": "npm run build:ts:prod",
+		"prepare": "npm run build",
 		"build:ts": "webpack",
 		"build:ts:prod": "cross-env NODE_ENV=production webpack",
 		"build:sass:prod": "node-sass --output-style compressed ./src/sass/main.scss > ./dist/style.min.css",
