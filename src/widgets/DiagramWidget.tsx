@@ -357,7 +357,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 
 					let selectedPoint: PointModel = model.model;
 					let link: LinkModel = selectedPoint.getLink();
-					if (link.getSourcePort() === null || link.getTargetPort() === null) {
+					if (link.getSourcePort() === null || link.getTargetPort() === null || link.getSourcePort().id === link.getTargetPort().id) {
 						link.remove();
 					}
 				});
