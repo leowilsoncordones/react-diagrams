@@ -189,7 +189,8 @@ export class DefaultLinkWidget extends BaseWidget<
 					event.preventDefault();
 					this.props.link.remove();
 				}
-			}
+			},
+			id: null
 		});
 
 		return (
