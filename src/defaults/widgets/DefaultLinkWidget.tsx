@@ -201,11 +201,26 @@ export class DefaultLinkWidget extends BaseWidget<
 		);
 	}
 
+	calculateAdvancedLinkDistance = (): any[] => {
+		const { link } = this.props;
+		if (link && link.sourcePort && link.targetPort) {
+			let a = Math.abs(link.sourcePort.x - link.targetPort.x);
+			let b = Math.abs(link.sourcePort.y - link.targetPort.y);
+			let distance = Math.sqrt(a * a + b * b);
+			return [distance];
+		}
+		return [];
+	};
+
 	findPathAndRelativePositionToRenderLabel = (
 		index: number
 	): { path: any; position: number } => {
 		// an array to hold all path lengths, making sure we hit the DOM only once to fetch this information
-		const lengths = this.refPaths.map(path => path.getTotalLength());
+		const lengths =
+			this.refPaths[0].childNodes.length > 0 &&
+			this.refPaths[0].nodeName === "g"
+				? this.calculateAdvancedLinkDistance()
+				: this.refPaths.map(path => path.getTotalLength());
 
 		// calculate the point where we want to display the label
 		let labelPosition =
