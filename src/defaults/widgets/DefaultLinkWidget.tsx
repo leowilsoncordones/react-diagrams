@@ -249,12 +249,22 @@ export class DefaultLinkWidget extends BaseWidget<
 	calculatePathCentre = () => {
 		const { link } = this.props;
 		if (link && link.sourcePort && link.targetPort) {
-			let x = link.sourcePort.x > link.targetPort.x ? link.sourcePort.x - link.targetPort.x : link.targetPort.x - link.sourcePort.x;
-			let y = link.sourcePort.y > link.targetPort.y ? link.sourcePort.y - link.targetPort.y :  link.targetPort.y - link.sourcePort.y;
-			return {x, y};
+			let x =
+				link.sourcePort.x > link.targetPort.x
+					? link.sourcePort.x -
+					  (link.sourcePort.x - link.targetPort.x) / 2
+					: link.targetPort.x -
+					  (link.targetPort.x - link.sourcePort.x) / 2;
+			let y =
+				link.sourcePort.y > link.targetPort.y
+					? link.sourcePort.y -
+					  (link.sourcePort.y - link.targetPort.y) / 2
+					: link.targetPort.y -
+					  (link.targetPort.y - link.sourcePort.y) / 2;
+			return { x, y };
 		}
-		return {x: 0, y: 0};
-	}
+		return { x: 0, y: 0 };
+	};
 
 	calculateLabelPosition = (label, index: number) => {
 		if (!this.refLabels[label.id]) {
@@ -272,10 +282,10 @@ export class DefaultLinkWidget extends BaseWidget<
 			height: this.refLabels[label.id].offsetHeight
 		};
 
-		const pathCentre = path.childNodes.length > 0 &&
-		path.nodeName === "g"
-			? this.calculatePathCentre()
-			: path.getPointAtLength(position);
+		const pathCentre =
+			path.childNodes.length > 0 && path.nodeName === "g"
+				? this.calculatePathCentre()
+				: path.getPointAtLength(position);
 
 		const labelCoordinates = {
 			x: pathCentre.x - labelDimensions.width / 2 + label.offsetX,
