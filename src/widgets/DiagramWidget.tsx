@@ -438,9 +438,9 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 						//check if it is pinch gesture
 						if (event.ctrlKey && scrollDelta % 1 !== 0) {
 							/*Chrome and Firefox sends wheel event with deltaY that
-                have fractional part, also `ctrlKey` prop of the event is true
-                though ctrl isn't pressed
-              */
+				have fractional part, also `ctrlKey` prop of the event is true
+				though ctrl isn't pressed
+			  */
 							scrollDelta /= 3;
 						} else {
 							scrollDelta /= 60;
@@ -532,6 +532,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 					this.state.document.addEventListener("mouseup", this.onMouseUp);
 				}}
 			>
+				<NodeLayerWidget workTable={true} diagramEngine={diagramEngine} />
 				{this.state.renderedNodes && (
 					<LinkLayerWidget
 						diagramEngine={diagramEngine}
@@ -546,7 +547,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 						}}
 					/>
 				)}
-				<NodeLayerWidget diagramEngine={diagramEngine} />
+				<NodeLayerWidget workTable={false} diagramEngine={diagramEngine} />
 				{this.state.action instanceof SelectingAction && this.drawSelectionBox()}
 			</div>
 		);

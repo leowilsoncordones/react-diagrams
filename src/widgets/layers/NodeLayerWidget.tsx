@@ -9,7 +9,7 @@ export interface NodeLayerProps extends BaseWidgetProps {
 	diagramEngine: DiagramEngine;
 }
 
-export interface NodeLayerState {}
+export interface NodeLayerState { }
 
 export class NodeLayerWidget extends BaseWidget<NodeLayerProps, NodeLayerState> {
 	constructor(props: NodeLayerProps) {
@@ -33,6 +33,17 @@ export class NodeLayerWidget extends BaseWidget<NodeLayerProps, NodeLayerState> 
 
 	render() {
 		var diagramModel = this.props.diagramEngine.getDiagramModel();
+		var workTable = this.props.workTable;
+		var nodes = diagramModel.getNodes();
+		let result = {};
+		Object.entries(nodes).forEach(([key, value]) => {
+			if (value.type !== 'work-table' && !workTable) {
+				result[key] = value;
+			}
+			else if (value.type === 'work-table' && workTable) {
+				result[key] = value;
+			}
+		})
 		return (
 			<div
 				{...this.getProps()}
@@ -47,7 +58,7 @@ export class NodeLayerWidget extends BaseWidget<NodeLayerProps, NodeLayerState> 
 						")"
 				}}
 			>
-				{_.map(diagramModel.getNodes(), (node: NodeModel) => {
+				{_.map(result, (node: NodeModel) => {
 					return React.createElement(
 						NodeWidget,
 						{
